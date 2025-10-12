@@ -1,3 +1,0 @@
-{
-  "import": [{ "path": "tiye/dom-ffi/lib", "alias": "dom" }]
-}

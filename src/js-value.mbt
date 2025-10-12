@@ -5,7 +5,8 @@ type JsValue
 extern "js" fn JsValue::from_string(value : String) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_string(self : JsValue) -> String =
   #| (self) => self
 
@@ -13,7 +14,8 @@ extern "js" fn JsValue::to_string(self : JsValue) -> String =
 extern "js" fn JsValue::from_number(value : Float) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_number(self : JsValue) -> Float =
   #| (self) => self
 
@@ -21,15 +23,17 @@ extern "js" fn JsValue::to_number(self : JsValue) -> Float =
 extern "js" fn JsValue::from_bool(value : Bool) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_bool(self : JsValue) -> Bool =
   #| (self) => self
 
 ///|
-extern "js" fn JsValue::from_object(value : JsObject) -> JsValue =
+pub extern "js" fn JsValue::from_object(value : JsObject) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_object(self : JsValue) -> JsObject =
   #| (self) => self
 
@@ -37,7 +41,8 @@ extern "js" fn JsValue::to_object(self : JsValue) -> JsObject =
 extern "js" fn JsValue::from_array(value : JsArray) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_array(self : JsValue) -> JsArray =
   #| (self) => self
 
@@ -45,7 +50,8 @@ extern "js" fn JsValue::to_array(self : JsValue) -> JsArray =
 extern "js" fn JsValue::from_fn(value : () -> JsValue) -> JsValue =
   #| (value) => value
 
-///| unsafe
+///|
+/// unsafe
 extern "js" fn JsValue::to_fn(self : JsValue) -> () -> JsValue =
   #| (self) => self
 
@@ -53,36 +59,67 @@ extern "js" fn JsValue::to_fn(self : JsValue) -> () -> JsValue =
 type JsObject
 
 ///|
-extern "js" fn JsObject::new() -> JsObject =
+pub extern "js" fn JsObject::new() -> JsObject =
   #| () => ({})
 
 ///|
 extern "js" fn JsObject::set(
   self : JsObject,
   key : String,
-  value : JsValue
+  value : JsValue,
 ) -> Unit =
   #| (self, key, value) => self[key] = value
 
 ///|
-extern "js" fn JsObject::get(self : JsObject, key : String) -> JsValue =
+pub extern "js" fn JsObject::get(self : JsObject, key : String) -> JsValue =
   #| (self, key) => self[key]
 
 ///|
-extern "js" fn JsObject::as_value(self : JsObject) -> JsValue =
+/// Converts a JavaScript object to a JavaScript value.
+///
+/// Parameters:
+///
+/// * `self` : The JavaScript object to convert.
+///
+/// Returns a `JsValue` representing the same object.
+///
+/// Example:
+///
+/// ```moonbit
+/// let obj = @tiye/preact.JsObject::new()
+/// let _value = obj.as_value()
+/// ```
+///
+pub extern "js" fn JsObject::as_value(self : JsObject) -> JsValue =
   #| (self) => self
 
 ///|
-type JsArray
+pub type JsArray
 
 ///|
-extern "js" fn JsArray::new() -> JsArray =
+pub extern "js" fn JsArray::to_string(self : JsArray) -> String =
+  #| (self) => `${self}`
+
+///|
+pub extern "js" fn JsArray::new() -> JsArray =
   #| () => []
+
+///|
+pub extern "js" fn JsArray::op_get(self : JsArray, index : Int) -> JsValue =
+  #| (self, index) => self[index]
+
+///|
+pub extern "js" fn JsArray::op_set(
+  self : JsArray,
+  index : Int,
+  value : JsValue,
+) -> Unit =
+  #| (self, index, value) => self[index] = value
 
 ///|
 extern "js" fn JsArray::push(self : JsArray, value : JsValue) -> Unit =
   #| (self, value) => self.push(value)
 
 ///|
-extern "js" fn JsArray::as_value(self : JsArray) -> JsValue =
+pub extern "js" fn JsArray::as_value(self : JsArray) -> JsValue =
   #| (self) => self

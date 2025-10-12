@@ -1,4 +1,17 @@
 {
   "is-main": true,
-  "import": ["tiye/preact/lib"]
+  "import": [
+    {
+      "path": "tiye/preact",
+      "alias": "preact"
+    },
+    {
+      "path": "tiye/dom-ffi/lib",
+      "alias": "dom"
+    },
+    {
+      "path": "tiye/respo_css",
+      "alias": "css"
+    }
+  ]
 }
